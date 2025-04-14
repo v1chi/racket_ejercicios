@@ -1,6 +1,6 @@
 #lang racket
 
-; sumar numeros primos de una lista
+; 1. sumar numeros primos de una lista
 
 (define (esPrimoAux n i)
     (cond
@@ -25,10 +25,41 @@
     )
 ))
 
-(define l1 (list 1 2 3 4 5))
-(sumar-lista-primos l1)
+(sumar-lista-primos '(1 2 3 4 5))
 
-; recibo un numero y me retorna la lista sin ese numero
+; 2. aplanar lista
+
+(define aplanar_lista(lambda (lista)
+    (cond
+    [(empty? lista) '()]
+    [(list? (car lista)) (append (aplanar_lista (car lista)) (aplanar_lista(cdr lista)))]
+    [else (cons (car lista) (aplanar_lista (cdr lista)))]
+)))
+
+(aplanar_lista '( 1 2 3 ( 2 3 (4 5)) 1 2 3 ))
+
+; 3. Defina una función que retorne los n últimos elementos de una lista
+
+(define retorn_n_elementos(lambda (n lista)
+    (cond
+   [(= (length lista) n) lista]
+   [else (retorn_n_elementos n (cdr lista))]
+)))
+
+(retorn_n_elementos 3 '(1 2 3 4 5))
+
+; 4. Defina una función que devuelva el valor absoluto de todos los elementos de una lista
+
+(define absoluto(lambda (lista)
+    (cond
+    [(empty? lista) '()]
+    [(< (car lista) 0) (cons (* (- 0 1) (car lista)) (absoluto (cdr lista)))] 
+    [else (cons (car lista) (absoluto (cdr lista)))]
+)))
+
+(absoluto '(1 -2 -3 4 -5 4 2))
+
+;5. recibo un numero y me retorna la lista sin ese numero
 
 (define (remove_el list n)
     (cond
@@ -39,19 +70,3 @@
 )
 
 (remove_el '(1 2 3 4 5 4 2) 4)
-
-#|
-1 2 3 4 5 6, n = 4
-1 (remove 2 3 4 5 6)
-2 (remove 3 4 5 6)
-3 (remove 4 5 6)
-(remove 5 6)
-5 (remove 6)
-6 remove ()
-()
-6
-5 6
-3 5 6
-2 3 5 6
-1 2 3 5 6
-|#
