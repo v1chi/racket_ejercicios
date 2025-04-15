@@ -25,6 +25,7 @@
     )
 ))
 
+(displayln "--------------------------")
 (sumar-lista-primos '(1 2 3 4 5))
 
 ; 2. aplanar lista
@@ -36,6 +37,7 @@
     [else (cons (car lista) (aplanar_lista (cdr lista)))]
 )))
 
+(displayln "--------------------------")
 (aplanar_lista '( 1 2 3 ( 2 3 (4 5)) 1 2 3 ))
 
 ; 3. Defina una función que retorne los n últimos elementos de una lista
@@ -46,6 +48,7 @@
    [else (retorn_n_elementos n (cdr lista))]
 )))
 
+(displayln "--------------------------")
 (retorn_n_elementos 3 '(1 2 3 4 5))
 
 ; 4. Defina una función que devuelva el valor absoluto de todos los elementos de una lista
@@ -57,9 +60,10 @@
     [else (cons (car lista) (absoluto (cdr lista)))]
 )))
 
+(displayln "--------------------------")
 (absoluto '(1 -2 -3 4 -5 4 2))
 
-;5. recibo un numero y me retorna la lista sin ese numero
+; 5. recibo un numero y me retorna la lista sin ese numero
 
 (define (remove_el list n)
     (cond
@@ -69,4 +73,19 @@
     )
 )
 
+(displayln "--------------------------")
 (remove_el '(1 2 3 4 5 4 2) 4)
+
+; 6. Definir la función "cuadrante" que dado dos valores (x y) retorna en que cuadrante de un plano cartesiano pertenece, si se encuentra en un eje tiene que retornar 0
+
+(define cuadrante(lambda (x y)
+    (cond
+    [(or (= x 0) (= y 0)) 0]
+    [(and (> x 0) (> y 0)) 1]
+    [(and (< x 0) (> y 0)) 2]
+    [(and (< x 0) (< y 0)) 3]
+    [else 4]
+)))
+
+(displayln "--------------------------")
+(cuadrante 1 -2)
