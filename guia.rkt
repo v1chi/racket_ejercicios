@@ -89,3 +89,68 @@
 
 (displayln "--------------------------")
 (cuadrante 1 -2)
+
+; 7.  Definir la función "multi" que toma 3 parámetros, una función anónima, una lista, otra lista, tiene que retornar el cuadrado de las mult de los elementos de la lista 
+
+(define multi(lambda (l1 l2)
+    (if (and (empty? l1) (empty? l2)) '()
+    (cons (expt (* (car l1) (car l2)) 2) (multi (cdr l1) (cdr l2)))
+)))
+(displayln "--------------------------")
+(multi '(1 2 3) '(2 3 4))
+
+; 8. Definir la función "full-comparar" que dada dos listas devuelve verdadero si es que
+;contienen los mismos elementos en el mismo orden (ignorando paréntesis) y retornar falso en otro caso
+
+(define full_comparar(lambda (l1 l2)
+    (cond
+    [(and (empty? l1) (empty? l2)) #t]
+    [(and (list? (car l1)) (not (list? (car l2)))) (if (not (= (car (car l1)) (car l2))) #f  (full_comparar (append (cdr (car l1)) (cdr l1) ) (cdr l2)))]
+    [(and (list? (car l2)) (not (list? (car l1)))) (if (not (= (car (car l2)) (car l1))) #f  (full_comparar (append (cdr (car l2)) (cdr l2) ) (cdr l1)))]
+    [(and (list? (car l1)) (list? (car l2))) (if (not (= (car (car l1)) (car (car l2)))) #f (full_comparar (append (cdr (car l1)) (cdr l1)) (append (cdr (car l2)) (cdr l2)) ))]
+    [(not(= (car l1) (car l2))) #f ] 
+    [else (full_comparar (cdr l1) (cdr l2))]
+)))
+
+(displayln "--------------------------")
+(full_comparar '(4 (5 6)) '((4 5) 6))
+(full_comparar '(3 2 1) '(1 (3 2)))
+
+
+; 9. Definir la función "mediana" que devuelve la mediana de una lista de números ordenados
+
+(define size_lista (lambda (l)
+    (if (empty? l) 
+    0
+    (+ 1 (size_lista (cdr l)))
+)))
+
+(define mediana_impar (lambda (l size) 
+    (if (= (size_lista l) (+ 0.5 (/ size 2))) 
+    (car l)
+    (mediana_impar (cdr l) size) 
+)))
+
+(define mediana_par (lambda (l size) 
+    (if (= (size_lista l) (+ 1 (/ size 2))) 
+    (/ ( + (car l) (car (cdr l))) 2)
+    (mediana_par (cdr l) size) 
+)))
+
+(define mediana (lambda (l)
+    (if (= (modulo (size_lista l) 2) 0) 
+    (mediana_par l (size_lista l))
+    (mediana_impar l (size_lista l)) 
+)))
+
+(displayln "--------------------------")
+(mediana '(1 2 3))
+(mediana '(1 2 3 4))
+
+; 10. discriminante de una función cuadrática
+
+(define discriminante (lambda (a b c) sqrt ( - (* b b ) (* 4 a c))))
+
+(displayln "--------------------------")
+(discriminante 1 2 3)
+
